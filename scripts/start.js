@@ -14,11 +14,9 @@ var WebpackDevServer = require('webpack-dev-server');
 var historyApiFallback = require('connect-history-api-fallback');
 var httpProxyMiddleware = require('http-proxy-middleware');
 var detect = require('detect-port');
-var clearConsole = require('react-dev-utils/clearConsole');
 var checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 var formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 var getProcessForPort = require('react-dev-utils/getProcessForPort');
-var openBrowser = require('react-dev-utils/openBrowser');
 var prompt = require('react-dev-utils/prompt');
 var fs = require('fs');
 var config = require('../config/webpack.config.dev');
@@ -61,9 +59,6 @@ function setupCompiler(host, port, protocol) {
   // bundle, so if you refresh, it'll wait instead of serving the old one.
   // "invalid" is short for "bundle invalidated", it doesn't imply any errors.
   compiler.plugin('invalid', function() {
-    if (isInteractive) {
-      clearConsole();
-    }
     console.log('Compiling...');
   });
 
@@ -72,9 +67,6 @@ function setupCompiler(host, port, protocol) {
   // "done" event fires when Webpack has finished recompiling the bundle.
   // Whether or not you have warnings or errors, you will get this event.
   compiler.plugin('done', function(stats) {
-    if (isInteractive) {
-      clearConsole();
-    }
 
     // We have switched off the default Webpack output in WebpackDevServer
     // options so we are going to "massage" the warnings and errors and present
@@ -272,9 +264,6 @@ function runDevServer(host, port, protocol) {
       return console.log(err);
     }
 
-    if (isInteractive) {
-      clearConsole();
-    }
     console.log(chalk.cyan('Starting the development server...'));
     console.log();
 
@@ -298,7 +287,6 @@ detect(DEFAULT_PORT).then(port => {
   }
 
   if (isInteractive) {
-    clearConsole();
     var existingProcess = getProcessForPort(DEFAULT_PORT);
     var question =
       chalk.yellow('Something is already running on port ' + DEFAULT_PORT + '.' +

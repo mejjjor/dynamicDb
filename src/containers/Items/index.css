@@ -1,0 +1,13 @@
+.items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.addButton {
+  align-self: flex-end;
+}
+
+.item {
+  margin: 10px 0;
+}

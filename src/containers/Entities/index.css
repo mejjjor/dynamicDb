@@ -1,0 +1,21 @@
+.entities {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.entity {
+  margin: 10px;
+  width: 300px;
+}
+
+.entities-container {
+  display: flex;
+  align-self: flex-start;
+  flex-wrap: wrap;
+}
+
+
+.addButton {
+  align-self: flex-end;
+}

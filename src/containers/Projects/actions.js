@@ -5,6 +5,7 @@ import {
   addProject,
   getProjects,
   removeProject,
+  setProjectChild,
 } from "actions"
 
 const actionCreators = {
@@ -13,6 +14,7 @@ const actionCreators = {
   addProject,
   getProjects,
   removeProject,
+  setProjectChild,
 }
 
 export default (dispatch) => {

@@ -1,7 +1,7 @@
 # TODOS
 
  - integrated
- - mep
+ - max width to 1200px
 
 -> v1 ! :)
 

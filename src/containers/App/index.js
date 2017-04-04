@@ -21,13 +21,14 @@ import Items from "containers/Items"
 import Item from "containers/Item"
 import Home from "containers/Home"
 
+import styles from "./index.css"
 
 class App extends Component {
 
   render(){
     return (
       <BrowserRouter>
-        <div>
+        <div className={styles.main}>
           <Route path="/" component={ReduxRouter}/>
           <Route path="/" component={TopBar}/>
           <ProtectedRoute

@@ -57,6 +57,17 @@ export const getItems = (items)=> {
   }
 }
 
+export const GET_ITEMS_RELATED = "GET_ITEMS_RELATED"
+export const getItemsRelated = (items)=> {
+  return {
+    type: GET_ITEMS_RELATED,
+    payload: {
+      items
+    }
+  }
+}
+
+
 
 export const SET_ITEM_CHILD = "SET_ITEM_CHILD"
 export const setItemChild = (itemId, child, key, value)=> {

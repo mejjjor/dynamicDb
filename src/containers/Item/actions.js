@@ -10,6 +10,8 @@ import {
   setProjectId,
   setEntityId,
   setItemId,
+  getItemsRelated,
+  getFieldsRelated,
 } from "actions"
 
 const actionCreators = {
@@ -22,6 +24,8 @@ const actionCreators = {
   setProjectId,
   setEntityId,
   setItemId,
+  getItemsRelated,
+  getFieldsRelated,
 }
 
 export default (dispatch) => {

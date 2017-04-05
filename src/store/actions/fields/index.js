@@ -24,6 +24,18 @@ export const getFields = (fields)=> {
   }
 }
 
+
+export const GET_FIELDS_RELATED = "GET_FIELDS_RELATED"
+export const getFieldsRelated = (fields)=> {
+  return {
+    type: GET_FIELDS_RELATED,
+    payload: {
+      fields
+    }
+  }
+}
+
+
 export const SET_FIELD_CHILD = "SET_FIELD_CHILD"
 export const setFieldChild = (fieldId, child, value)=> {
   let newChild = {}

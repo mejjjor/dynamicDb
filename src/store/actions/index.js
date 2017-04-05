@@ -36,6 +36,7 @@ export {
   GET_FIELDS, getFields,
   SET_FIELD_CHILD, setFieldChild,
   REMOVE_FIELD, removeField,
+  GET_FIELDS_RELATED, getFieldsRelated,
 } from "./fields"
 
 export {
@@ -44,8 +45,9 @@ export {
   SET_ITEM_CHILD, setItemChild,
   REMOVE_ITEM, removeItem,
   ADD_ITEM_CHILD,  addItemChild,
-  REMOVE_ITEM_CHILD,  removeItemChild,
-  REMOVE_ITEM_ENTRY,  removeItemEntry,
+  REMOVE_ITEM_CHILD, removeItemChild,
+  REMOVE_ITEM_ENTRY, removeItemEntry,
+  GET_ITEMS_RELATED, getItemsRelated,
 } from "./items"
 
 export {

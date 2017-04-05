@@ -1,8 +1,7 @@
 # TODOS
 
  - integrated
- - max width to 1200px
-
+ - edit d'une entity -> checkbox en ligne
 -> v1 ! :)
 
  - écrire les tests

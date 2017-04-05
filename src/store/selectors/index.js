@@ -10,7 +10,11 @@ export const getEntitiesSelector = store => store.entities.entities
 
 export const getFieldsSelector = store => store.fields.fields
 
+export const getFieldsRelatedSelector = store => store.fields.fieldsRelated
+
 export const getItemsSelector = store => store.items.items
+
+export const getItemsRelatedSelector = store => store.items.itemsRelated
 
 export const getCurrentProjectId = store => store.router.projectId
 

@@ -1,10 +1,12 @@
 import {
   GET_FIELDS,
+  GET_FIELDS_RELATED,
 } from "actions"
 
 const initialState = {
   ids: [],
-  fields: {}
+  fields: {},
+  fieldsRelated: {}
 }
 
 export default (state = initialState, action) => {
@@ -14,6 +16,16 @@ export default (state = initialState, action) => {
       if (!action.payload.fields)
         return {...state, fields:{}}
       return {...state, fields:action.payload.fields}
+
+    case GET_FIELDS_RELATED: {
+      const fieldsRelated = {...state.fieldsRelated}
+      Object.keys(action.payload.fields).forEach((fieldKey) => {
+        fieldsRelated[fieldKey] = action.payload.fields[fieldKey]
+
+      })
+
+      return {...state, fieldsRelated}
+    }
 
     default:
       return state

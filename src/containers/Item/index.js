@@ -32,6 +32,7 @@ class Item extends Component {
   componentDidMount() {
     listenRef("items/data", this.props.getItems, "entityId", this.entityId)
     listenRef("fields/data", this.props.getFields, "entityId", this.entityId)
+
   }
 
   componentWillUnmount() {
@@ -39,12 +40,23 @@ class Item extends Component {
     stopListenRef("fields/data")
   }
 
-  getFields(fields, items) {
+  componentWillReceiveProps(newProps) {
+    if (this.props.entitiesRelated !== newProps.entitiesRelated) {
+      newProps.entitiesRelated.forEach((entityId) => {
+        listenRef("items/data", this.props.getItemsRelated, "entityId", entityId)
+        listenRef("fields/data", this.props.getFieldsRelated, "entityId", entityId)
+      })
+    }
+  }
+
+  getFields(fields, items, fieldsRelated) {
     return Object.keys(fields)
       .filter(fieldKey => items[this.itemId][fieldKey] )
       .map((fieldKey) => {
-      return Object.keys(items[this.itemId][fieldKey]).map((entry) => {
+      return Object.keys(items[this.itemId][fieldKey])
+      .map((entry) => {
         switch (fields[fieldKey].type) {
+
           case "Text":
             return (
               <Input
@@ -75,25 +87,36 @@ class Item extends Component {
               />
             )
           case "Entity":
+            this.entityRelated = fields[fieldKey].typeEntityId
+            this.fieldMaster = Object.keys(fieldsRelated).find(fieldKey => fieldsRelated[fieldKey].master)
+
+            let currentValue = ""
+            if (this.fieldMaster && items[this.itemId][fieldKey][entry] !== ""){
+              Object.keys(this.props.itemsRelated)
+              .filter(itemKey => this.props.itemsRelated[itemKey].entityId === this.entityRelated)
+              .find((itemKey) => {
+                const firstEntryKey = Object.keys(this.props.itemsRelated[itemKey][this.fieldMaster]).find(()=>true)
+                currentValue = this.props.itemsRelated[itemKey][this.fieldMaster][firstEntryKey]
+                return true
+              })
+            }
+            console.log(currentValue)
             return (
               <Autocomplete
                 key={entry}
                 multiple={false}
                 label={fields[fieldKey].name}
-                source={Object.keys(this.props.items)
-                .filter(itemKey => this.props.items[itemKey].entityId === fields[fieldKey].typeEntityId)
-                .reduce((acc, itemKey) => {
-                  const label = Object.keys(this.props.items[itemKey]).reduce((acc, fieldKey)=>{
-                    if (fields[fieldKey] && fields[fieldKey].master)
-                      return Object.keys(this.props.items[itemKey][fieldKey]).reduce((acc, entryKey) => {
-                        return acc || this.props.items[itemKey][fieldKey][entryKey]
-                      }, false)
+                source={Object.keys(this.props.itemsRelated)
+                  .filter(itemKey => this.props.itemsRelated[itemKey].entityId === this.entityRelated)
+                  .reduce((acc, itemKey) => {
+                    if (this.fieldMaster) {
+                      const firstEntryKey = Object.keys(this.props.itemsRelated[itemKey][this.fieldMaster]).find(()=>true)
+                      acc[itemKey] = this.props.itemsRelated[itemKey][this.fieldMaster][firstEntryKey]
+                    }
+                    console.log("acc ",acc)
                     return acc
-                  },"")
-                  acc[itemKey] = label
-                  return acc
-                }, {"":"nothing"})}
-                value={items[this.itemId][fieldKey][entry]}
+                  }, {"":"nothing"})}
+                value={currentValue}
                 onChange={this.props.setItemChild.bind(this, this.itemId, fieldKey, entry)}
               />
             )
@@ -138,7 +161,7 @@ class Item extends Component {
     return(
       <div className={styles.item}>
         <div>
-          { this.getFields(this.props.fields, this.props.items) }
+          { this.getFields(this.props.fields, this.props.items, this.props.fieldsRelated) }
         </div>
       </div>
     )

@@ -80,7 +80,7 @@ class Entity extends Component {
             />
           }
 
-         { this.props.fields[fieldKey].master &&
+         { this.props.fields[fieldKey].type === "Entity" &&
            <Checkbox
             className={styles.checkbox}
             checked={this.props.fields[fieldKey].integrated}
@@ -106,6 +106,7 @@ class Entity extends Component {
 
     return(
       <div className={ styles.entity }>
+        <h1>Edit entity</h1>
         <Input
           type='text'
           label='Name'

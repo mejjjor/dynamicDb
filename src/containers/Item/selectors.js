@@ -6,6 +6,7 @@ import {
   getItemsRelatedSelector,
   getFieldsRelatedSelector,
   getEntitiesRelatedSelector,
+  getEntitiesSelector,
 } from "selectors"
 
 
@@ -16,13 +17,15 @@ export default createSelector(
   getEntitiesRelatedSelector,
   getItemsRelatedSelector,
   getFieldsRelatedSelector,
-  (items, fields, entitiesRelated, itemsRelated, fieldsRelated) => {
+  getEntitiesSelector,
+  (items, fields, entitiesRelated, itemsRelated, fieldsRelated, entities) => {
     return {
       items,
       fields,
       entitiesRelated,
       itemsRelated,
       fieldsRelated,
+      entities,
     }
   }
 )

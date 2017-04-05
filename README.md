@@ -1,7 +1,6 @@
 # TODOS
 
  - integrated
- - indexOn firebase
 -> v1 ! :)
 
  - écrire les tests

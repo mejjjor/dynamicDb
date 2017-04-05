@@ -61,6 +61,7 @@ class Entities extends Component {
   render(){
     return(
       <div className={styles.entities}>
+        <h1>All entities</h1>
         <Button
           className={ styles.addButton}
           raised

@@ -11,6 +11,7 @@ import {
   removeItem,
   getItemsRelated,
   getFieldsRelated,
+  getEntities,
 } from "actions"
 
 const actionCreators = {
@@ -24,6 +25,7 @@ const actionCreators = {
   removeItem,
   getItemsRelated,
   getFieldsRelated,
+  getEntities,
 }
 
 export default (dispatch) => {

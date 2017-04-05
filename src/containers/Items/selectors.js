@@ -8,6 +8,7 @@ import {
   getItemsRelatedSelector,
   getFieldsRelatedSelector,
   getEntitiesRelatedSelector,
+  getEntitiesSelector,
 } from "selectors"
 
 const isItemMatch = (item, filter) => {
@@ -42,7 +43,8 @@ export default createSelector(
   getItemsRelatedSelector,
   getFieldsRelatedSelector,
   getEntitiesRelatedSelector,
-  (items, fields, filter, entityId, itemsRelated, fieldsRelated, entitiesRelated ) => {
+  getEntitiesSelector,
+  (items, fields, filter, entityId, itemsRelated, fieldsRelated, entitiesRelated, entities ) => {
     return {
       items,
       fields,
@@ -51,6 +53,7 @@ export default createSelector(
       itemsRelated,
       fieldsRelated,
       entitiesRelated,
+      entities,
     }
   }
 )

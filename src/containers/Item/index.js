@@ -165,6 +165,8 @@ class Item extends Component {
   render(){
     return(
       <div className={styles.item}>
+        <h1>Edit item from entity "{this.props.entities[this.entityId]? this.props.entities[this.entityId].name : ""}"</h1>
+
         <div>
           { this.getFields(this.props.fields, this.props.items, this.props.fieldsRelated) }
         </div>

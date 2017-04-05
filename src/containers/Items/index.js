@@ -16,14 +16,16 @@ class Items extends Component {
   constructor(props){
     super(props)
     this.entityId = this.props.match.params.entityId
+    this.projectId = this.props.match.params.projectId
 
-    this.props.setProjectId(this.props.match.params.projectId)
+    this.props.setProjectId(this.projectId)
     this.props.setEntityId(this.entityId)
   }
 
   componentDidMount() {
     listenRef("items/data", this.props.getItems, "entityId", this.entityId)
     listenRef("fields/data", this.props.getFields, "entityId", this.entityId)
+    listenRef("entities/data", this.props.getEntities, "projectId", this.projectId)
   }
 
   componentWillReceiveProps(newProps) {
@@ -138,6 +140,7 @@ class Items extends Component {
   render(){
     return(
       <div className={ styles.items }>
+        <h1>All items from entity "{this.props.entities[this.entityId]? this.props.entities[this.entityId].name : ""}"</h1>
         <Button
           className={styles.addButton}
           icon='add'

@@ -46,6 +46,7 @@ class Projects extends Component {
   render(){
     return(
       <div className={styles.projects}>
+        <h1>All projects</h1>
         <Button className={styles["add-button"]} icon='add' label="Add a project" onClick={this.props.addProject} />
         <div className={styles["project-container"]}>
           { this.getProjects(this.props.projects) }

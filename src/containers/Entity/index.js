@@ -80,13 +80,14 @@ class Entity extends Component {
             />
           }
 
-         { this.props.fields[fieldKey].type === "Entity" &&
-           <Checkbox
-            className={styles.checkbox}
-            checked={this.props.fields[fieldKey].integrated}
-            label="Integrated"
-            onChange={this.props.setFieldChild.bind(this, fieldKey, "integrated")}
-           />
+          {
+        //   this.props.fields[fieldKey].type === "Entity" &&
+        //    <Checkbox
+        //     className={styles.checkbox}
+        //     checked={this.props.fields[fieldKey].integrated}
+        //     label="Integrated"
+        //     onChange={this.props.setFieldChild.bind(this, fieldKey, "integrated")}
+        //    />
           }
           </CardText>
         { !this.props.fields[fieldKey].master &&

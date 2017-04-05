@@ -1,8 +1,8 @@
 # TODOS
 
- - integrated
 -> v1 ! :)
 
+ - integrated
  - écrire les tests
  - pas de vrai suppression
  - faire un historique (à rajouter dans la sidebar)

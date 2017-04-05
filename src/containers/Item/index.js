@@ -104,24 +104,26 @@ class Item extends Component {
               })
             }
             return (
-              <Autocomplete
-                key={entry}
-                direction="down"
-                suggestionMatch="anywhere"
-                multiple={false}
-                label={fields[fieldKey].name}
-                source={Object.keys(this.props.itemsRelated)
-                  .filter(itemKey => this.props.itemsRelated[itemKey].entityId === this.entityRelated)
-                  .reduce((acc, itemKey) => {
-                    if (this.props.itemsRelated[itemKey][this.fieldMaster] && this.fieldMaster) {
-                      const firstEntryKey = Object.keys(this.props.itemsRelated[itemKey][this.fieldMaster]).find(()=>true)
-                      acc[itemKey] = this.props.itemsRelated[itemKey][this.fieldMaster][firstEntryKey]
-                    }
-                    return acc
-                  }, {"":"nothing"})}
-                value={currentValue}
-                onChange={this.props.setItemChild.bind(this, this.itemId, fieldKey, entry)}
-              />
+              <div>
+                <Autocomplete
+                  key={entry}
+                  direction="down"
+                  suggestionMatch="anywhere"
+                  multiple={false}
+                  label={fields[fieldKey].name}
+                  source={Object.keys(this.props.itemsRelated)
+                    .filter(itemKey => this.props.itemsRelated[itemKey].entityId === this.entityRelated)
+                    .reduce((acc, itemKey) => {
+                      if (this.props.itemsRelated[itemKey][this.fieldMaster] && this.fieldMaster) {
+                        const firstEntryKey = Object.keys(this.props.itemsRelated[itemKey][this.fieldMaster]).find(()=>true)
+                        acc[itemKey] = this.props.itemsRelated[itemKey][this.fieldMaster][firstEntryKey]
+                      }
+                      return acc
+                    }, {"":"nothing"})}
+                  value={currentValue}
+                  onChange={this.props.setItemChild.bind(this, this.itemId, fieldKey, entry)}
+                />
+            </div>
             )
 
           default:

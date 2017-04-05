@@ -2,13 +2,12 @@ import firebase from "firebase"
 import { _removeField, _addField } from "utils/firebase"
 
 export const ADD_FIELD = "ADD_FIELD"
-export const addField = (projectId, entityId)=> {
-  _addField(projectId, entityId)
+export const addField = (entityId)=> {
+  _addField(entityId)
 
   return {
     type: ADD_FIELD,
     payload: {
-      projectId,
       entityId
     }
   }

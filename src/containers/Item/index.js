@@ -95,25 +95,28 @@ class Item extends Component {
               Object.keys(this.props.itemsRelated)
               .filter(itemKey => this.props.itemsRelated[itemKey].entityId === this.entityRelated)
               .find((itemKey) => {
-                const firstEntryKey = Object.keys(this.props.itemsRelated[itemKey][this.fieldMaster]).find(()=>true)
-                currentValue = this.props.itemsRelated[itemKey][this.fieldMaster][firstEntryKey]
-                return true
+                if (itemKey === items[this.itemId][fieldKey][entry]) {
+                  const firstEntryKey = Object.keys(this.props.itemsRelated[itemKey][this.fieldMaster]).find(()=>true)
+                  currentValue = this.props.itemsRelated[itemKey][this.fieldMaster][firstEntryKey]
+                  return true
+                }
+                return false
               })
             }
-            console.log(currentValue)
             return (
               <Autocomplete
                 key={entry}
+                direction="down"
+                suggestionMatch="anywhere"
                 multiple={false}
                 label={fields[fieldKey].name}
                 source={Object.keys(this.props.itemsRelated)
                   .filter(itemKey => this.props.itemsRelated[itemKey].entityId === this.entityRelated)
                   .reduce((acc, itemKey) => {
-                    if (this.fieldMaster) {
+                    if (this.props.itemsRelated[itemKey][this.fieldMaster] && this.fieldMaster) {
                       const firstEntryKey = Object.keys(this.props.itemsRelated[itemKey][this.fieldMaster]).find(()=>true)
                       acc[itemKey] = this.props.itemsRelated[itemKey][this.fieldMaster][firstEntryKey]
                     }
-                    console.log("acc ",acc)
                     return acc
                   }, {"":"nothing"})}
                 value={currentValue}
@@ -130,12 +133,14 @@ class Item extends Component {
             <div className={styles.entryContent}>
               { entry }
             </div>
-              <Button
+              {index === 0? null
+                :
+                <Button
                 icon="delete"
                 label="Delete value"
                 raised
                 onClick={this.props.removeItemEntry.bind(this, this.itemId, fieldKey, entry.key)}
-              />
+              />}
           </CardText>
         )
       })

@@ -5,25 +5,15 @@ import {
   getFieldsSelector,
   getItemsRelatedSelector,
   getFieldsRelatedSelector,
+  getEntitiesRelatedSelector,
 } from "selectors"
 
-const getEntitiesRelated = createSelector(
-  getFieldsSelector,
-  (fields) => {
-    return Object.keys(fields)
-    .filter((fieldKey) => {
-      return fields[fieldKey].type === 'Entity'
-    })
-    .map((fieldKey) => {
-      return fields[fieldKey].typeEntityId
-    })
-  }
-)
+
 
 export default createSelector(
   getItemsSelector,
   getFieldsSelector,
-  getEntitiesRelated,
+  getEntitiesRelatedSelector,
   getItemsRelatedSelector,
   getFieldsRelatedSelector,
   (items, fields, entitiesRelated, itemsRelated, fieldsRelated) => {

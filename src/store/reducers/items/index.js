@@ -19,7 +19,7 @@ switch (action.type) {
 
   case GET_ITEMS_RELATED: {
     const itemsRelated = {...state.itemsRelated}
-    Object.keys(action.payload.items).forEach((itemKey) => {
+    action.payload.items && Object.keys(action.payload.items).forEach((itemKey) => {
       itemsRelated[itemKey] = action.payload.items[itemKey]
     })
 

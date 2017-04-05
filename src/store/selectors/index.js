@@ -1,3 +1,5 @@
+import { createSelector } from "reselect"
+
 export const isAuthenticatedSelector = store => store.firebase.isAuthenticated
 
 export const getTitle = store => store.appInfos.title
@@ -23,3 +25,16 @@ export const getCurrentEntityId = store => store.router.entityId
 export const getCurrentItemId = store => store.router.itemId
 
 export const getFilterSelector = store => store.filters
+
+export const getEntitiesRelatedSelector = createSelector(
+  getFieldsSelector,
+  (fields) => {
+    return Object.keys(fields)
+    .filter((fieldKey) => {
+      return fields[fieldKey].type === 'Entity'
+    })
+    .map((fieldKey) => {
+      return fields[fieldKey].typeEntityId
+    })
+  }
+)

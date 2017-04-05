@@ -1,5 +1,5 @@
 import firebase from "firebase"
-import { createRef, _removeEntity } from "utils/firebase"
+import { createRef, _removeEntity, _addField } from "utils/firebase"
 
 export const ADD_ENTITY = "ADD_ENTITY"
 export const addEntity = (projectId)=> {
@@ -8,7 +8,8 @@ export const addEntity = (projectId)=> {
     projectId
   }
 
-  createRef('entities/data', newEntity)
+  const key = createRef('entities/data', newEntity)
+  _addField(key, true)
 
   return {
     type: ADD_ENTITY,

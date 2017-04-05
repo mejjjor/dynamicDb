@@ -6,6 +6,7 @@
 
 .field {
   margin: 10px 0;
+  overflow: visible;
 }
 
 .entry {

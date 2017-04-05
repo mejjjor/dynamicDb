@@ -26,6 +26,15 @@ class Items extends Component {
     listenRef("fields/data", this.props.getFields, "entityId", this.entityId)
   }
 
+  componentWillReceiveProps(newProps) {
+    if (this.props.entitiesRelated !== newProps.entitiesRelated) {
+      newProps.entitiesRelated.forEach((entityId) => {
+        listenRef("items/data", this.props.getItemsRelated, "entityId", entityId)
+        listenRef("fields/data", this.props.getFieldsRelated, "entityId", entityId)
+      })
+    }
+  }
+
   componentWillUnmount() {
     stopListenRef("items/data")
     stopListenRef("fields/data")
@@ -49,9 +58,25 @@ class Items extends Component {
           )
 
         case "Entity":
+          this.entityRelated = this.props.fields[fieldKey].typeEntityId
+          this.fieldMaster = Object.keys(this.props.fieldsRelated).find(fieldKey => this.props.fieldsRelated[fieldKey].master)
+
+          let currentValue = ""
+          if (this.fieldMaster && this.props.items[itemKey][fieldKey][valueKey] !== ""){
+            Object.keys(this.props.itemsRelated)
+            .filter(itemKey => this.props.itemsRelated[itemKey].entityId === this.entityRelated)
+            .find((itemsRelatedKey) => {
+              if (this.props.itemsRelated[itemsRelatedKey][this.fieldMaster] && this.fieldMaster && itemsRelatedKey === this.props.items[itemKey][fieldKey][valueKey]) {
+                const firstEntryKey = Object.keys(this.props.itemsRelated[itemsRelatedKey][this.fieldMaster]).find(()=>true)
+                currentValue = this.props.itemsRelated[itemsRelatedKey][this.fieldMaster][firstEntryKey]
+                return true
+              }
+              return false
+            })
+          }
           return (
             <CardText key={valueKey}>
-              {this.getMasterField(this.props.items[itemKey][fieldKey][valueKey])}
+              {currentValue}
             </CardText>
           )
         default:
@@ -61,6 +86,7 @@ class Items extends Component {
   }
 
   getMasterField(itemId) {
+    console.log(itemId)
     if (this.props.items[itemId]){
       const masterFieldId = Object.keys(this.props.items[itemId]).find((fieldKey) => {
         return this.props.fields[fieldKey].master

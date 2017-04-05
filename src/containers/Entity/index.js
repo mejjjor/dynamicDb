@@ -4,7 +4,7 @@ import { listenRef, stopListenRef } from "utils/firebase"
 
 import Dropdown from 'react-toolbox/lib/dropdown'
 import { Button } from 'react-toolbox/lib/button'
-import { Card, CardActions } from 'react-toolbox/lib/card';
+import { Card, CardActions, CardText } from 'react-toolbox/lib/card';
 
 import Input from 'react-toolbox/lib/input'
 import Checkbox from 'react-toolbox/lib/checkbox'
@@ -50,12 +50,13 @@ class Entity extends Component {
             value={this.props.fields[fieldKey].name}
             onChange={this.props.setFieldChild.bind(this, fieldKey, "name")}
           />
-          <Dropdown
+          { !this.props.fields[fieldKey].master && <Dropdown
             label="Type"
             source={this.types}
             value={this.props.fields[fieldKey].type}
             onChange={this.props.setFieldChild.bind(this, fieldKey, "type")}
           />
+          }
           { this.props.fields[fieldKey].type === "Entity" &&
             <Dropdown
               label="Entity"
@@ -69,29 +70,30 @@ class Entity extends Component {
               onChange={this.props.setFieldChild.bind(this, fieldKey, "typeEntityId")}
             />
           }
-          { this.props.fields[fieldKey].type === "Text" &&
+          <CardText className={styles.checkboxs}>
+          { !this.props.fields[fieldKey].master && this.props.fields[fieldKey].type === "Text" &&
             <Checkbox
+             className={styles.checkbox}
              checked={this.props.fields[fieldKey].multiline}
              label="Multiline"
              onChange={this.props.setFieldChild.bind(this, fieldKey, "multiline")}
             />
           }
-         <Checkbox
-          checked={this.props.fields[fieldKey].integrated}
-          label="Integrated"
-          onChange={this.props.setFieldChild.bind(this, fieldKey, "integrated")}
-         />
-         { this.props.fields[fieldKey].type !== "Entity" &&
-            <Checkbox
-             checked={this.props.fields[fieldKey].master}
-             label="Master"
-             onChange={this.props.setFieldChild.bind(this, fieldKey, "master")}
-             />
-          }
-        <CardActions>
-          <Button raised icon="delete" label="Delete" onClick={this.props.removeField.bind(this, fieldKey, this.entityId)}  />
-        </CardActions>
 
+         { this.props.fields[fieldKey].master &&
+           <Checkbox
+            className={styles.checkbox}
+            checked={this.props.fields[fieldKey].integrated}
+            label="Integrated"
+            onChange={this.props.setFieldChild.bind(this, fieldKey, "integrated")}
+           />
+          }
+          </CardText>
+        { !this.props.fields[fieldKey].master &&
+          <CardActions>
+            <Button raised icon="delete" label="Delete" onClick={this.props.removeField.bind(this, fieldKey, this.entityId)}  />
+          </CardActions>
+        }
         </Card>
       )
     })
@@ -118,7 +120,7 @@ class Entity extends Component {
           raised
           icon='add'
           label="Add a field"
-          onClick={this.props.addField.bind(this, this.projectId, this.entityId)}
+          onClick={this.props.addField.bind(this, this.entityId)}
         />
       </div>
     )

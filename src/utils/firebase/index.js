@@ -42,13 +42,22 @@ export const createRef = (path, newRef) => {
   return key
 }
 
-export const _addField = (fieldId, entityId) => {
-  const newField = {
-    entityId,
-    name: "new field",
-    type: "Text",
+export const _addField = (entityId, isInitial) => {
+  let newField
+  if (isInitial) {
+    newField = {
+      entityId,
+      name: "Name",
+      type: "Text",
+      master: true
+    }
+  }else {
+    newField = {
+      entityId,
+      name: "new field",
+      type: "Text",
+    }
   }
-
   const fieldKey = createRef('fields/data', newField)
   getRef("items/data", (items) => {
     items && Object.keys(items).forEach((itemKey) => {
@@ -78,6 +87,7 @@ export const _removeField = (fieldId, entityId) => {
     }, "entityId", entityId)
 
 
+
   firebase.database().ref()
   .child(`fields/data/${fieldId}`)
   .remove()
@@ -87,11 +97,15 @@ export const _removeEntity = (entityId) => {
 
   getRef("fields/data",(fields) => {
     fields && Object.keys(fields).forEach((fieldKey) => {
-      firebase.database().ref()
-      .child(`fields/data/${fieldKey}`)
-      .remove()
+      _removeField(fieldKey, entityId)
     })
   }, "entityId", entityId)
+
+  getRef("fields/data",(fields) => {
+    fields && Object.keys(fields).forEach((fieldKey) => {
+      _removeField(fieldKey, fields[fieldKey].entityId)
+    })
+  }, "typeEntityId", entityId)
 
   getRef("items/data",(items) => {
     items && Object.keys(items).forEach((itemKey) => {

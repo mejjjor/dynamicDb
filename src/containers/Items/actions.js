@@ -9,6 +9,8 @@ import {
   setEntityId,
   setFilter,
   removeItem,
+  getItemsRelated,
+  getFieldsRelated,
 } from "actions"
 
 const actionCreators = {
@@ -20,6 +22,8 @@ const actionCreators = {
   setEntityId,
   setFilter,
   removeItem,
+  getItemsRelated,
+  getFieldsRelated,
 }
 
 export default (dispatch) => {

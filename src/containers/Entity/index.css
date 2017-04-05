@@ -11,3 +11,12 @@
 .entity {
   width: 100%;
 }
+
+.checkboxs {
+  display: flex;
+}
+
+
+ .checkbox {
+   margin: 0 5px;
+ }

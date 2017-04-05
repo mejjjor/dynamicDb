@@ -1,7 +1,7 @@
 # TODOS
 
  - integrated
- - edit d'une entity -> checkbox en ligne
+ - indexOn firebase
 -> v1 ! :)
 
  - écrire les tests

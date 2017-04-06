@@ -11,6 +11,9 @@ import mapDispatchToProps from "./actions"
 
 import styles from "./index.css"
 
+import { saveAll } from "utils/firebase"
+import { load } from "utils/firebase"
+
 
 class Projects extends Component {
 
@@ -43,6 +46,20 @@ class Projects extends Component {
     })
   }
 
+  makeTextFile() {
+    saveAll((text) => {
+      const str = JSON.stringify(text)
+      var data = new Blob([str], {type: 'text/plain'});
+      const textFile = window.URL.createObjectURL(data);
+      window.open(textFile)
+    })
+  }
+
+  load() {
+    load()
+  }
+
+
   render(){
     return(
       <div className={styles.projects}>
@@ -52,6 +69,8 @@ class Projects extends Component {
           { this.getProjects(this.props.projects) }
         </div>
         <Button className={styles["add-button"]} icon='add' label="Add a project" onClick={this.props.addProject} />
+        <Button className={styles["add-button"]} icon='save' label="Save all" onClick={this.makeTextFile} />
+        {/*<Button className={styles["add-button"]} icon='file_upload' label="Upload" onClick={this.load} />*/}
       </div>
     )
   }

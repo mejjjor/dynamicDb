@@ -1,0 +1,21 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "items": {
+      "data": {
+        ".indexOn": "entityId"
+      }
+    },
+    "entities": {
+      "data": {
+        ".indexOn": "projectId"
+      }
+    },
+    "fields": {
+      "data": {
+        ".indexOn": "entityId"
+      }
+    }
+  }
+}

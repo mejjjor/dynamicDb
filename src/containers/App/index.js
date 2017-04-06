@@ -49,7 +49,7 @@ class App extends Component {
               <Route path="/(login)?:notEmpty" render={() => {
                 return (
                   <div>
-                  PERDU! Cest la 404 poto!
+                  PERDU! Cest la 404 !
                   </div>
                 )
               }}/>

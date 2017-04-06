@@ -88,8 +88,9 @@ class Item extends Component {
             )
           case "Entity":
             this.entityRelated = fields[fieldKey].typeEntityId
-            this.fieldMaster = Object.keys(fieldsRelated).find(fieldKey => fieldsRelated[fieldKey].master)
-
+            this.fieldMaster = Object.keys(fieldsRelated).find(fieldKey => {
+              return fieldsRelated[fieldKey].entityId === this.entityRelated && fieldsRelated[fieldKey].master
+            })
             let currentValue = ""
             if (this.fieldMaster && items[this.itemId][fieldKey][entry] !== ""){
               Object.keys(this.props.itemsRelated)

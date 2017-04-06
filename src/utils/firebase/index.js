@@ -1,5 +1,15 @@
 import firebase from "firebase"
 
+export const saveAll = (action) => {
+  firebase.database().ref("/")
+  .once("value", (dataSnapshot) => {
+    action(dataSnapshot.val())
+  })
+}
+
+export const load = (data) => {
+  firebase.database().ref("/").update(data)
+}
 
 export const listenRef = (path, action, key, value) => {
   const ref = firebase.database().ref(path)

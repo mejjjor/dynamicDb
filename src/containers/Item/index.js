@@ -105,7 +105,6 @@ class Item extends Component {
               })
             }
             return (
-              <div>
                 <Autocomplete
                   key={entry}
                   direction="down"
@@ -124,13 +123,13 @@ class Item extends Component {
                   value={currentValue}
                   onChange={this.props.setItemChild.bind(this, this.itemId, fieldKey, entry)}
                 />
-            </div>
             )
 
           default:
             return null
         }
       }).map((entry, index) => {
+        console.log("zzzzzzzzzzzzzzz", entry)
         return (
           <CardText key={`${fieldKey}++uglyHack${index}`} className={styles.entry}>
             <div className={styles.entryContent}>

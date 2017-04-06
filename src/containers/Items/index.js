@@ -2,9 +2,11 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import { listenRef, stopListenRef } from "utils/firebase"
 
-import { Card, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+import { Card, CardActions } from 'react-toolbox/lib/card';
 import Input from 'react-toolbox/lib/input';
 import { Button } from 'react-toolbox/lib/button'
+
+import dateFns from "date-fns"
 
 import mapStateToProps from "./selectors"
 import mapDispatchToProps from "./actions"
@@ -48,15 +50,15 @@ class Items extends Component {
       switch (type) {
         case "Text":
           return (
-            <CardText key={valueKey}>{this.props.items[itemKey][fieldKey][valueKey]}</CardText>
+            <div key={valueKey}>{this.props.items[itemKey][fieldKey][valueKey]}</div>
           )
 
         case "Date":
         case "Time":
           return (
-            <CardText key={valueKey}>
-              {Date(this.props.items[itemKey][fieldKey][valueKey])}
-            </CardText>
+            <div key={valueKey}>
+              {dateFns.format( new Date(this.props.items[itemKey][fieldKey][valueKey]), 'MM/DD/YYYY')}
+            </div>
           )
 
         case "Entity":
@@ -77,9 +79,9 @@ class Items extends Component {
             })
           }
           return (
-            <CardText key={valueKey}>
+            <div key={valueKey}>
               {currentValue}
-            </CardText>
+            </div>
           )
         default:
           return null
@@ -102,8 +104,10 @@ class Items extends Component {
     .filter(fieldKey => this.props.fields[fieldKey] && fieldKey !== "entityId")
     .map((fieldKey) => {
       return (
-        <div key={fieldKey}>
-          <CardTitle subtitle={this.props.fields[fieldKey].name} />
+        <div className={styles.fields} key={fieldKey}>
+          <div className={styles.field}>
+          {this.props.fields[fieldKey].name} :
+          </div>
           { this.getValues(itemKey, fieldKey, this.props.fields[fieldKey].type) }
         </div>
       )
